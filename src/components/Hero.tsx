@@ -19,28 +19,32 @@ const Hero = ({ onLocationSubmit }: HeroProps) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center bg-service-gradient overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-32 h-32 rounded-full border-2 border-primary"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 rounded-full border-2 border-primary"></div>
-        <div className="absolute bottom-32 left-1/4 w-16 h-16 rounded-full border-2 border-primary"></div>
-      </div>
+    <section 
+      className="relative min-h-screen flex items-center overflow-hidden"
+      style={{
+        backgroundImage: `url('/lovable-uploads/998c81ed-f70a-4f9b-a040-9ffbe6dbd04e.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-white/85 backdrop-blur-sm"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-        {/* Content */}
-        <div className="text-center lg:text-left">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        {/* Content - Centered Layout */}
+        <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
             Your One Stop Cleaning
             <span className="block text-primary">Centre For All Needs</span>
           </h1>
 
-          <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Professional cleaning services for your home and office. Book trusted cleaners with just a few clicks.
           </p>
 
           {/* Location Input */}
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto lg:mx-0">
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
             <div className="flex gap-3 bg-background p-2 rounded-xl shadow-soft border border-border">
               <div className="relative flex-1">
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
@@ -61,15 +65,6 @@ const Hero = ({ onLocationSubmit }: HeroProps) => {
               </Button>
             </div>
           </form>
-        </div>
-
-        {/* Hero Image */}
-        <div className="relative">
-          <img 
-            src={heroImage} 
-            alt="Professional cleaning team at work" 
-            className="w-full h-auto rounded-2xl shadow-medium"
-          />
         </div>
       </div>
     </section>
