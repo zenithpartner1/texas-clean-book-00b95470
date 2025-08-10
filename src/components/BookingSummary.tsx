@@ -1,7 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Calendar, Home, Plus, DollarSign, Edit2 } from "lucide-react";
+import { MapPin, Calendar, Home, Plus, DollarSign, Edit2, CreditCard, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface BookingSummaryItem {
   service?: string;
@@ -158,9 +159,25 @@ const BookingSummary = ({ bookingData, onEdit }: BookingSummaryProps) => {
                       
                       <Separator />
                       
-                      <div className="flex justify-between items-center font-bold text-lg">
+                      <div className="flex justify-between items-center font-bold text-lg mb-4">
                         <span>Total</span>
                         <span className="text-primary">${calculateTotal()}</span>
+                      </div>
+
+                      {/* Checkout Button */}
+                      <Button 
+                        className="w-full hero-button text-lg py-6"
+                        size="lg"
+                      >
+                        <CreditCard className="mr-2 w-5 h-5" />
+                        Proceed to Checkout
+                      </Button>
+                      
+                      <div className="flex items-center justify-center gap-2 mt-3">
+                        <Lock className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">
+                          Secure payment powered by Stripe
+                        </span>
                       </div>
                     </div>
                   </>
