@@ -48,7 +48,7 @@ const BookingForm = ({ onLocationVerified }: BookingFormProps) => {
     <div 
       className="min-h-screen flex items-center justify-center relative"
       style={{
-        backgroundImage: `url('/lovable-uploads/44284c23-4f83-456f-99bd-c2a9f90d868c.png')`,
+        backgroundImage: `url('/lovable-uploads/2a2ff6c9-e2ed-4a4e-92cf-d004010e6762.png')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
