@@ -90,7 +90,7 @@ const ServiceSelection = ({ onServiceSelect }: ServiceSelectionProps) => {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-background to-secondary/10 min-h-screen pb-32">
+    <section className="py-16 bg-gradient-to-br from-background to-secondary/10 min-h-screen pb-48">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -170,7 +170,7 @@ const ServiceSelection = ({ onServiceSelect }: ServiceSelectionProps) => {
 
       {/* Sticky Continue Button */}
       {selectedService && (
-        <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border shadow-lg z-50">
+        <div className="fixed bottom-16 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border shadow-lg z-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-center sm:text-left">

@@ -184,7 +184,7 @@ const Index = () => {
       
       <div className="flex">
         {/* Main Content */}
-        <div className={`flex-1 ${currentStep !== 'booking' ? 'lg:pr-96' : ''}`}>
+        <div className={`flex-1 ${currentStep !== 'booking' ? 'lg:pr-96' : ''} pb-16`}>
           {renderCurrentStep()}
         </div>
         
@@ -201,7 +201,10 @@ const Index = () => {
         )}
       </div>
       
-      <Footer />
+      {/* Sticky Footer */}
+      <div className="fixed bottom-0 left-0 right-0 z-40">
+        <Footer />
+      </div>
     </div>
   );
 };
