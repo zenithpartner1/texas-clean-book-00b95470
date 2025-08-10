@@ -1,21 +1,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
-
-// Import service images (using existing assets temporarily)
-import heroCleanImg from "@/assets/hero-cleaning.jpg";
-import bookIconImg from "@/assets/book-icon.jpg";
-import cleanIconImg from "@/assets/clean-icon.jpg";
-import freedomIconImg from "@/assets/freedom-icon.jpg";
+import { ArrowRight, Check, Star, Clock, Home, Sparkles, Users, Building, Hammer } from "lucide-react";
 
 interface Service {
   id: string;
   name: string;
   description: string;
-  detailedDescription: string;
-  image: string;
+  icon: any;
+  price: string;
+  duration: string;
   popular?: boolean;
+  features: string[];
 }
 
 interface ServiceSelectionProps {
@@ -28,67 +24,58 @@ const ServiceSelection = ({ onServiceSelect }: ServiceSelectionProps) => {
   const services: Service[] = [
     {
       id: "recurring-standard",
-      name: "Recurring Standard Clean",
-      description: "Regular maintenance cleaning to keep your home spotless",
-      detailedDescription: "Weekly, bi-weekly, or monthly cleaning service that includes dusting, vacuuming, mopping, bathroom and kitchen cleaning. Perfect for busy households who want to maintain a consistently clean home.",
-      image: heroCleanImg,
+      name: "Recurring Clean",
+      description: "Regular weekly or bi-weekly cleaning service for busy households",
+      icon: Clock,
+      price: "From $120",
+      duration: "2-3 hours",
       popular: true,
+      features: ["Dusting & vacuuming", "Kitchen & bathroom cleaning", "Mopping floors", "Trash removal"],
     },
     {
-      id: "one-time-standard",
-      name: "One Time Standard Clean",
-      description: "Perfect for occasional deep cleaning sessions",
-      detailedDescription: "Complete home cleaning service for special occasions, events, or when you need a thorough clean. Includes all standard cleaning tasks with attention to detail.",
-      image: cleanIconImg,
-    },
-    {
-      id: "initial-deep",
-      name: "Initial Deep Clean & Ongoing Standard Service",
-      description: "Start with deep clean, continue with regular service",
-      detailedDescription: "Begins with intensive deep cleaning to establish a clean baseline, followed by regular maintenance cleaning. Ideal for starting a long-term cleaning relationship.",
-      image: bookIconImg,
+      id: "one-time-standard", 
+      name: "One-Time Clean",
+      description: "Perfect for special occasions or when you need a thorough clean",
+      icon: Check,
+      price: "From $150",
+      duration: "3-4 hours",
+      features: ["Complete home cleaning", "All rooms included", "Kitchen deep clean", "Bathroom sanitization"],
     },
     {
       id: "deep-cleaning",
-      name: "Deep Cleaning",
-      description: "Comprehensive deep cleaning for every corner",
-      detailedDescription: "Intensive cleaning service that covers areas often missed in regular cleaning. Includes baseboards, light fixtures, inside appliances, and detailed sanitization.",
-      image: freedomIconImg,
+      name: "Deep Clean",
+      description: "Comprehensive cleaning that covers every corner of your home",
+      icon: Sparkles,
+      price: "From $250",
+      duration: "4-6 hours",
+      features: ["Baseboards & trim", "Inside appliances", "Light fixtures", "Window sills"],
     },
     {
       id: "moving-in",
-      name: "Moving In Clean",
-      description: "Get your new home ready before you move in",
-      detailedDescription: "Complete sanitization and cleaning of your new home before you move in. Ensures every surface is clean and ready for your family to settle in comfortably.",
-      image: heroCleanImg,
+      name: "Move-In Clean",
+      description: "Get your new home spotless before you settle in",
+      icon: Home,
+      price: "From $200",
+      duration: "3-5 hours",
+      features: ["Empty home cleaning", "Cabinet interiors", "Appliance cleaning", "Floor deep clean"],
     },
     {
       id: "moving-out",
-      name: "Moving Out Clean",
-      description: "Leave your old place spotless for the next tenant",
-      detailedDescription: "Thorough cleaning to help you get your security deposit back. Covers all areas including inside appliances, cabinets, and deep cleaning of all surfaces.",
-      image: cleanIconImg,
-    },
-    {
-      id: "make-ready",
-      name: "Make Ready Clean",
-      description: "Property preparation for new tenants or sale",
-      detailedDescription: "Professional cleaning service for landlords and real estate agents. Prepares properties for showings, new tenants, or sale with detailed cleaning and sanitization.",
-      image: bookIconImg,
-    },
-    {
-      id: "post-renovation",
-      name: "Post Renovation Clean Up",
-      description: "Clean up after renovation or remodeling work",
-      detailedDescription: "Specialized cleaning to remove renovation dust, debris, and residue. Includes detailed cleaning of all surfaces affected by construction work.",
-      image: freedomIconImg,
+      name: "Move-Out Clean",
+      description: "Leave your old place pristine for the next residents",
+      icon: Users,
+      price: "From $200",
+      duration: "3-5 hours",
+      features: ["Security deposit clean", "All surfaces", "Inside appliances", "Final walkthrough"],
     },
     {
       id: "post-construction",
-      name: "Post Construction Cleanup",
-      description: "Remove construction debris and dust thoroughly",
-      detailedDescription: "Heavy-duty cleaning service for new construction or major renovations. Removes construction dust, adhesives, paint splatters, and prepares the space for occupancy.",
-      image: heroCleanImg,
+      name: "Post-Construction",
+      description: "Remove construction dust and debris thoroughly",
+      icon: Hammer,
+      price: "From $300",
+      duration: "4-8 hours",
+      features: ["Dust removal", "Paint splatter cleanup", "Window cleaning", "Floor polishing"],
     },
   ];
 
@@ -103,55 +90,77 @@ const ServiceSelection = ({ onServiceSelect }: ServiceSelectionProps) => {
   };
 
   return (
-    <section className="py-12 bg-service-gradient min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 bg-gradient-to-br from-background to-secondary/10 min-h-screen">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-foreground mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Choose Your <span className="text-primary">Cleaning Service</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Select the cleaning service that best fits your needs. We offer comprehensive solutions for every situation.
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Professional cleaning services tailored to your needs. Select the perfect service for your home.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {services.map((service) => {
+            const IconComponent = service.icon;
             const isSelected = selectedService === service.id;
             
             return (
               <Card 
                 key={service.id}
-                className={`cursor-pointer transition-all duration-300 hover:shadow-medium ${
-                  isSelected ? 'ring-2 ring-primary shadow-medium' : ''
-                } ${service.popular ? 'relative' : ''} overflow-hidden`}
+                className={`cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group ${
+                  isSelected ? 'ring-2 ring-primary shadow-lg border-primary' : 'border-border hover:border-primary/50'
+                } ${service.popular ? 'relative' : ''}`}
                 onClick={() => handleServiceSelect(service.id)}
               >
                 {service.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                    <span className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
+                    <div className="bg-gradient-to-r from-amber-400 to-orange-500 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                      <Star className="w-3 h-3 fill-current" />
                       Most Popular
-                    </span>
+                    </div>
                   </div>
                 )}
-                <div className="aspect-video w-full overflow-hidden">
-                  <img 
-                    src={service.image} 
-                    alt={service.name}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg font-bold text-foreground">
+                
+                <CardHeader className="text-center pb-4">
+                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center transition-colors ${
+                    isSelected ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground'
+                  }`}>
+                    <IconComponent className="w-8 h-8" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-foreground mb-2">
                     {service.name}
                   </CardTitle>
+                  <div className="flex justify-center items-center gap-4 text-sm text-muted-foreground mb-3">
+                    <span className="font-semibold text-lg text-primary">{service.price}</span>
+                    <span>•</span>
+                    <span>{service.duration}</span>
+                  </div>
                 </CardHeader>
+                
                 <CardContent className="pt-0">
-                  <CardDescription className="text-muted-foreground mb-2">
+                  <CardDescription className="text-center text-muted-foreground mb-4 leading-relaxed">
                     {service.description}
                   </CardDescription>
-                  <p className="text-sm text-muted-foreground/80">
-                    {service.detailedDescription}
-                  </p>
+                  
+                  <div className="space-y-2">
+                    {service.features.map((feature, index) => (
+                      <div key={index} className="flex items-center text-sm text-muted-foreground">
+                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {isSelected && (
+                    <div className="mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
+                      <div className="flex items-center text-sm font-medium text-primary">
+                        <Check className="w-4 h-4 mr-2" />
+                        Selected
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             );
@@ -162,7 +171,8 @@ const ServiceSelection = ({ onServiceSelect }: ServiceSelectionProps) => {
           <div className="text-center">
             <Button 
               onClick={handleContinue}
-              className="hero-button"
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Continue with {services.find(s => s.id === selectedService)?.name}
               <ArrowRight className="ml-2 w-5 h-5" />
