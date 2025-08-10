@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import WhyChoose from "@/components/WhyChoose";
+import BookingForm from "@/components/BookingForm";
 import ServiceSelection from "@/components/ServiceSelection";
 import FrequencySelection from "@/components/FrequencySelection";
-import MiniCart from "@/components/MiniCart";
+import BookingSummary from "@/components/BookingSummary";
 import Footer from "@/components/Footer";
 
 interface BookingData {
@@ -18,27 +16,12 @@ interface BookingData {
 }
 
 const Index = () => {
-  const { toast } = useToast();
-  const [currentStep, setCurrentStep] = useState<'landing' | 'services' | 'frequency' | 'bedrooms' | 'addons' | 'checkout'>('landing');
+  const [currentStep, setCurrentStep] = useState<'booking' | 'services' | 'frequency' | 'bedrooms' | 'addons' | 'checkout'>('booking');
   const [bookingData, setBookingData] = useState<BookingData>({});
 
-  const handleLocationSubmit = (location: string) => {
-    // Validate Texas location (simplified check)
-    const texasZipPattern = /^7[0-9]{4}$/;
-    if (texasZipPattern.test(location)) {
-      setBookingData(prev => ({ ...prev, location }));
-      setCurrentStep('services');
-      toast({
-        title: "Location Verified!",
-        description: "Service is available in your area.",
-      });
-    } else {
-      toast({
-        title: "Service Not Available",
-        description: "We currently only serve Texas locations. Please enter a valid Texas zip code.",
-        variant: "destructive",
-      });
-    }
+  const handleLocationVerified = (location: string) => {
+    setBookingData(prev => ({ ...prev, location }));
+    setCurrentStep('services');
   };
 
   const handleServiceSelect = (service: string) => {
@@ -63,7 +46,6 @@ const Index = () => {
     if (service === 'recurring-standard') {
       setCurrentStep('frequency');
     } else {
-      // For other services, skip frequency selection
       setCurrentStep('bedrooms');
     }
   };
@@ -77,15 +59,14 @@ const Index = () => {
     setCurrentStep('services');
   };
 
+  const handleEditBooking = () => {
+    setCurrentStep('services');
+  };
+
   const renderCurrentStep = () => {
     switch (currentStep) {
-      case 'landing':
-        return (
-          <>
-            <Hero onLocationSubmit={handleLocationSubmit} />
-            <WhyChoose />
-          </>
-        );
+      case 'booking':
+        return <BookingForm onLocationVerified={handleLocationVerified} />;
       case 'services':
         return <ServiceSelection onServiceSelect={handleServiceSelect} />;
       case 'frequency':
@@ -98,12 +79,15 @@ const Index = () => {
       default:
         return (
           <div className="min-h-screen flex items-center justify-center bg-service-gradient">
-            <div className="text-center">
+            <div className="text-center max-w-md mx-auto p-8">
               <h2 className="text-3xl font-bold text-foreground mb-4">
                 Coming Soon!
               </h2>
-              <p className="text-lg text-muted-foreground">
-                Additional booking steps are being developed.
+              <p className="text-lg text-muted-foreground mb-6">
+                Additional booking steps (bedrooms, add-ons, checkout) are being developed.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Your current selection has been saved in the booking summary.
               </p>
             </div>
           </div>
@@ -116,14 +100,20 @@ const Index = () => {
       <Header />
       
       <div className="flex">
-        <div className={`flex-1 ${currentStep !== 'landing' ? 'lg:pr-80' : ''}`}>
+        {/* Main Content */}
+        <div className={`flex-1 ${currentStep !== 'booking' ? 'lg:pr-96' : ''}`}>
           {renderCurrentStep()}
         </div>
         
-        {/* Mini Cart - Only show after location is set */}
-        {currentStep !== 'landing' && (
-          <div className="hidden lg:block fixed right-0 top-16 w-80 h-full bg-background border-l border-border p-6 overflow-y-auto">
-            <MiniCart cartData={bookingData} location={bookingData.location} />
+        {/* Booking Summary Sidebar - Fixed position like the reference app */}
+        {currentStep !== 'booking' && (
+          <div className="hidden lg:block fixed right-0 top-16 w-96 h-full bg-background border-l border-border overflow-y-auto">
+            <div className="p-6">
+              <BookingSummary 
+                bookingData={bookingData} 
+                onEdit={handleEditBooking}
+              />
+            </div>
           </div>
         )}
       </div>
