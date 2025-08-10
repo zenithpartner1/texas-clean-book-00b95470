@@ -46,44 +46,6 @@ const BookingForm = ({ onLocationVerified }: BookingFormProps) => {
 
   return (
     <div className="min-h-screen bg-service-gradient">
-      {/* Hero Section */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <img 
-          src={heroImage} 
-          alt="Professional cleaning service" 
-          className="w-full h-80 object-cover"
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white max-w-4xl mx-auto px-4">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Professional Cleaning Services
-              <span className="block text-primary-light">in Texas</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-90">
-              Experience the difference with our reliable, trusted cleaning professionals. 
-              Book your service in minutes and enjoy a spotless home.
-            </p>
-            
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-8 text-sm md:text-base">
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-primary-light" />
-                <span>Same-day booking available</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-primary-light" />
-                <span>Fully insured & bonded</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-primary-light" />
-                <span>100% satisfaction guarantee</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Service Area Check */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <Card className="max-w-2xl mx-auto shadow-medium">
