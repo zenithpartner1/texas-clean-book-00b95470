@@ -3,6 +3,11 @@ import Header from "@/components/Header";
 import BookingForm from "@/components/BookingForm";
 import ServiceSelection from "@/components/ServiceSelection";
 import FrequencySelection from "@/components/FrequencySelection";
+import BedroomSelection from "@/components/BedroomSelection";
+import AddOnsSelection from "@/components/AddOnsSelection";
+import EmailVerification from "@/components/EmailVerification";
+import AddressAndScheduling from "@/components/AddressAndScheduling";
+import BookingConfirmation from "@/components/BookingConfirmation";
 import BookingSummary from "@/components/BookingSummary";
 import Footer from "@/components/Footer";
 
@@ -13,10 +18,16 @@ interface BookingData {
   bedrooms?: number;
   addOns?: string[];
   price?: number;
+  email?: string;
+  name?: string;
+  phone?: string;
+  address?: string;
+  timeSlot?: string;
+  instructions?: string;
 }
 
 const Index = () => {
-  const [currentStep, setCurrentStep] = useState<'booking' | 'services' | 'frequency' | 'bedrooms' | 'addons' | 'checkout'>('booking');
+  const [currentStep, setCurrentStep] = useState<'booking' | 'services' | 'frequency' | 'bedrooms' | 'addons' | 'email' | 'address' | 'confirmation'>('booking');
   const [bookingData, setBookingData] = useState<BookingData>({});
 
   const handleLocationVerified = (location: string) => {
@@ -55,8 +66,63 @@ const Index = () => {
     setCurrentStep('bedrooms');
   };
 
+  const handleBedroomSelect = (bedrooms: number) => {
+    const bedroomPrice = bedrooms > 1 ? (bedrooms - 1) * 25 : 0;
+    setBookingData(prev => ({ 
+      ...prev, 
+      bedrooms,
+      price: (prev.price || 0) + bedroomPrice
+    }));
+    setCurrentStep('addons');
+  };
+
+  const handleAddOnsSelect = (addOns: string[]) => {
+    const addOnsPrice = addOns.length * 25;
+    setBookingData(prev => ({ 
+      ...prev, 
+      addOns,
+      price: (prev.price || 0) + addOnsPrice
+    }));
+    setCurrentStep('email');
+  };
+
+  const handleEmailVerified = (email: string) => {
+    setBookingData(prev => ({ ...prev, email }));
+    setCurrentStep('address');
+  };
+
+  const handleAddressComplete = (data: {
+    address: string;
+    name: string;
+    phone: string;
+    timeSlot: string;
+    instructions?: string;
+  }) => {
+    setBookingData(prev => ({ 
+      ...prev, 
+      ...data
+    }));
+    setCurrentStep('confirmation');
+  };
+
   const handleBackToServices = () => {
     setCurrentStep('services');
+  };
+
+  const handleBackToFrequency = () => {
+    setCurrentStep('frequency');
+  };
+
+  const handleBackToBedrooms = () => {
+    setCurrentStep('bedrooms');
+  };
+
+  const handleBackToAddOns = () => {
+    setCurrentStep('addons');
+  };
+
+  const handleBackToEmail = () => {
+    setCurrentStep('email');
   };
 
   const handleEditBooking = () => {
@@ -76,22 +142,39 @@ const Index = () => {
             onBack={handleBackToServices}
           />
         );
-      default:
+      case 'bedrooms':
         return (
-          <div className="min-h-screen flex items-center justify-center bg-service-gradient">
-            <div className="text-center max-w-md mx-auto p-8">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                Coming Soon!
-              </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Additional booking steps (bedrooms, add-ons, checkout) are being developed.
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Your current selection has been saved in the booking summary.
-              </p>
-            </div>
-          </div>
+          <BedroomSelection 
+            onBedroomSelect={handleBedroomSelect}
+            onBack={handleBackToFrequency}
+          />
         );
+      case 'addons':
+        return (
+          <AddOnsSelection 
+            onAddOnsSelect={handleAddOnsSelect}
+            onBack={handleBackToBedrooms}
+          />
+        );
+      case 'email':
+        return (
+          <EmailVerification 
+            onEmailVerified={handleEmailVerified}
+            onBack={handleBackToAddOns}
+          />
+        );
+      case 'address':
+        return (
+          <AddressAndScheduling 
+            onComplete={handleAddressComplete}
+            onBack={handleBackToEmail}
+            email={bookingData.email || ""}
+          />
+        );
+      case 'confirmation':
+        return <BookingConfirmation bookingData={bookingData} />;
+      default:
+        return <BookingForm onLocationVerified={handleLocationVerified} />;
     }
   };
 
