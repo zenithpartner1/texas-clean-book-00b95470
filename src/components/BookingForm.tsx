@@ -45,41 +45,49 @@ const BookingForm = ({ onLocationVerified }: BookingFormProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-service-gradient">
-      {/* Service Area Check */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <Card className="max-w-2xl mx-auto shadow-medium">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-foreground">
-              Service Area Check
-            </CardTitle>
-            <CardDescription className="text-lg">
-              Enter your Texas address or ZIP code to check if we service your area.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleCheckAvailability} className="space-y-4">
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                <Input
-                  type="text"
-                  placeholder="Enter your address or ZIP code"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="pl-10 h-12 text-lg"
-                  disabled={isChecking}
-                />
-              </div>
-              <Button 
-                type="submit" 
-                className="w-full h-12 text-lg hero-button"
-                disabled={!address.trim() || isChecking}
-              >
-                {isChecking ? "Checking..." : "Check Availability"}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+    <div 
+      className="min-h-screen flex items-center justify-center relative"
+      style={{
+        backgroundImage: `url('/lovable-uploads/44284c23-4f83-456f-99bd-c2a9f90d868c.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-white/10"></div>
+      
+      {/* Main Content */}
+      <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-12 leading-tight">
+          Your One Stop Cleaning
+          <br />
+          Centre For All Needs
+        </h1>
+
+        {/* Search Section */}
+        <div className="max-w-2xl mx-auto">
+          <form onSubmit={handleCheckAvailability} className="flex gap-4 bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-lg">
+            <div className="relative flex-1">
+              <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+              <Input
+                type="text"
+                placeholder="Enter Zip Code"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                className="pl-12 h-14 text-lg border-0 bg-transparent focus-visible:ring-0 placeholder:text-muted-foreground"
+                disabled={isChecking}
+              />
+            </div>
+            <Button 
+              type="submit" 
+              className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 text-white rounded-xl font-semibold"
+              disabled={!address.trim() || isChecking}
+            >
+              {isChecking ? "Checking..." : "Check Availability"}
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );
