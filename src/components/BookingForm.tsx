@@ -46,13 +46,12 @@ const BookingForm = ({ onLocationVerified }: BookingFormProps) => {
 
   return (
     <div 
-      className="min-h-screen h-screen flex items-center justify-center relative -mt-16 pt-16"
+      className="h-screen flex items-center justify-center relative -mt-16 pt-16 overflow-hidden"
       style={{
         backgroundImage: `url('/lovable-uploads/2a2ff6c9-e2ed-4a4e-92cf-d004010e6762.png')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
+        backgroundRepeat: 'no-repeat'
       }}
     >
       {/* Overlay */}
