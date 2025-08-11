@@ -90,8 +90,9 @@ const ServiceSelection = ({ onServiceSelect }: ServiceSelectionProps) => {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-background to-secondary/10 min-h-screen">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative">
+      <section className="py-16 bg-gradient-to-br from-background to-secondary/10 min-h-screen pb-32">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Choose Your <span className="text-primary">Cleaning Service</span>
@@ -166,21 +167,33 @@ const ServiceSelection = ({ onServiceSelect }: ServiceSelectionProps) => {
             );
           })}
         </div>
+        </div>
+      </section>
 
-        {selectedService && (
-          <div className="text-center">
-            <Button 
-              onClick={handleContinue}
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              Continue
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+      {/* Sticky Continue Button - only within service selection */}
+      {selectedService && (
+        <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border shadow-lg z-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-center sm:text-left">
+                <p className="text-sm text-muted-foreground">Selected Service:</p>
+                <p className="font-semibold text-foreground">
+                  {services.find(s => s.id === selectedService)?.name} - {services.find(s => s.id === selectedService)?.price}
+                </p>
+              </div>
+              <Button 
+                onClick={handleContinue}
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+              >
+                Continue
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </div>
           </div>
-        )}
-      </div>
-    </section>
+        </div>
+      )}
+    </div>
   );
 };
 
