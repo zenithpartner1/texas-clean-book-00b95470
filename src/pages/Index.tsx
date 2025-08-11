@@ -184,14 +184,14 @@ const Index = () => {
       
       <div className="flex">
         {/* Main Content */}
-        <div className={`flex-1 ${currentStep !== 'booking' ? 'lg:pr-96' : ''} pb-16`}>
+        <div className={`flex-1 ${currentStep !== 'booking' ? 'lg:pr-96' : ''} pb-20`}>
           {renderCurrentStep()}
         </div>
         
-        {/* Booking Summary Sidebar - Fixed position like the reference app */}
+        {/* Booking Summary Sidebar - Fixed position with bottom padding for footer */}
         {currentStep !== 'booking' && (
-          <div className="hidden lg:block fixed right-0 top-16 w-96 h-full bg-background border-l border-border overflow-y-auto">
-            <div className="p-6">
+          <div className="hidden lg:block fixed right-0 top-16 w-96 h-[calc(100vh-4rem)] bg-background border-l border-border overflow-y-auto">
+            <div className="p-6 pb-20">
               <BookingSummary 
                 bookingData={bookingData} 
                 onEdit={handleEditBooking}
@@ -201,7 +201,7 @@ const Index = () => {
         )}
       </div>
       
-      {/* Sticky Footer */}
+      {/* Sticky Footer with action panel */}
       <div className="fixed bottom-0 left-0 right-0 z-40">
         <Footer />
       </div>
